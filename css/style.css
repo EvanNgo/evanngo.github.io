@@ -110,12 +110,17 @@ hr {
 }
 
 .Nav-info-img {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 2px;
   border: 2px solid #febb02;
   margin: 40px auto 25px;
   transform: rotate(45deg);
+  overflow: hidden;
+}
+
+.Nav-info-img img {
+  transform: rotate(-45deg) scale(1.4);
 }
 
 .Nav-info-name {
@@ -379,10 +384,14 @@ hr {
   position: absolute;
   top: 1px;
   left: 50%;
-  width: 80%;
+  width: 140%;
   height: 120px;
   transform: translateY(-100%);
   padding: 20px 5px 5px;
+}
+
+.Timeline-item:last-child .Timeline-item-content {
+  width: 80%;
 }
 
 .Timeline-item:nth-child(2n) .Timeline-item-content {
@@ -410,6 +419,11 @@ hr {
 .Timeline-item-content__ttl {
   font-size: 13px;
   font-weight: bold;
+  margin-top: 5px;
+}
+
+.Timeline-item-content__ttl:first-child {
+  margin-top: 0;
 }
 
 .Timeline-item-content__txt {
@@ -434,7 +448,7 @@ hr {
 
 .Timeline-item:nth-child(3) .Timeline-item__year,
 .Timeline-item:nth-child(3) .Timeline-item-content__icon {
-  background: #a1d469;
+  background: #8ebd5b;
 }
 
 .Timeline-item:nth-child(4) .Timeline-item__year,
@@ -456,7 +470,7 @@ hr {
 }
 
 .Timeline-item:nth-child(3) .Timeline-item-content__ttl {
-  color: #a1d469;
+  color: #8ebd5b;
 }
 
 .Timeline-item:nth-child(4) .Timeline-item-content__ttl {
@@ -501,16 +515,41 @@ hr {
   border-radius: 5px;
   padding: 0 2px;
   display: flex;
+  opacity: 0.8;
 }
 
 .Content-skill-item__process span {
   background: #49b4cf;
   border-radius: 3px;
-  width: 9.55%;
-  margin: 2px 0.5% 2px 0;
+  width: 9.37%;
+  margin: 2px 0.7% 2px 0;
 }
 
 .Content-skill-item__process span:last-child {
   margin-right: 0;
+}
+
+.Content-skill-item--max .Content-skill-item__process {
+  border-color: #ed5463;
+}
+
+.Content-skill-item--max .Content-skill-item__process span {
+  background: #ed5463;
+}
+
+.Content-skill-item--high .Content-skill-item__process {
+  border-color: #fb6e52;
+}
+
+.Content-skill-item--high .Content-skill-item__process span {
+  background: #fb6e52;
+}
+
+.Content-skill-item--medium .Content-skill-item__process {
+  border-color: #49cfae;
+}
+
+.Content-skill-item--medium .Content-skill-item__process span {
+  background: #49cfae;
 }
 /* END : SKILL */
