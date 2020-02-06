@@ -249,7 +249,7 @@ hr {
 }
 
 .Content__txt {
-  font-size: 1.6em;
+  font-size: 1.5em;
 }
 
 .Content__note {
@@ -271,7 +271,7 @@ hr {
 }
 
 .Timeline-start, .Timeline-end {
-  flex: 0 0 45px;
+  flex: 0 0 55px;
 }
 
 .Timeline-body {
@@ -285,13 +285,14 @@ hr {
   position: relative;
 }
 
-.Timeline-start i, .Timeline-end i {
+.Timeline-start img, .Timeline-end img {
   position: absolute;
   top: 50%;
+  width: 40px;
   transform: translateY(-50%);
 }
 
-.Timeline-end i {
+.Timeline-end img {
   right: 0;
 }
 
@@ -313,14 +314,14 @@ hr {
   position: absolute;
   bottom: -3px;
   height: 30%;
-  left: 30px;
+  left: 45px;
   right: -1.5px;
   content: "";
 }
 
 .Timeline-end__line::before {
   left: -1.5px;
-  right: 35px;
+  right: 40px;
   border-radius: 0 0 0 5px;
   border-width: 0 0 3px 3px;
 }
@@ -337,7 +338,7 @@ hr {
   width: 10px;
   border-radius: 50%;
   position: absolute;
-  left: 30px;
+  left: 40px;
   bottom: 0;
   content: "";
   background: #ddd;
@@ -353,12 +354,12 @@ hr {
   height: 0;
   position: absolute;
   bottom: 0;
-  right: 35px;
+  right: 40px;
   transform: translate(5px, 6.5px);
 }
 
 .Timeline-end__line--bottom::after {
-  transform: translate(5px, -6.5px);
+  transform: translate(5px, -5px);
   bottom: auto;
   top: 0;
 }
@@ -408,13 +409,13 @@ hr {
   position: absolute;
   top: 1px;
   left: 50%;
-  width: 140%;
+  width: 100%;
   transform: translateY(-100%);
   padding: 20px 5px 5px;
 }
 
 .Timeline-item:last-child .Timeline-item-content {
-  width: 80%;
+  width: 70%;
 }
 
 .Timeline-item:nth-child(2n) .Timeline-item-content {

@@ -47,7 +47,9 @@ document.addEventListener("DOMContentLoaded", function(){
     timeline.appendChild(timelineTitle);
 
     var timelineStart = createElement("div", "Timeline-start");
-    timelineStart.appendChild(createElement("i", "fas fa-baby"));
+    var timelineStartIcon = createElement("img", "Timeline-start__ico");
+    timelineStartIcon.setAttribute("src","/img/timeline_start.png");
+    timelineStart.appendChild(timelineStartIcon);
     timelineStart.appendChild(createElement("p","Timeline-start__line"));
     timelineContent.appendChild(timelineStart);
 
@@ -69,13 +71,41 @@ document.addEventListener("DOMContentLoaded", function(){
         currentTimelineItem.appendChild(createElement("p", "Timeline-item__year", currentYear));
         currentTimelineItemContent = createElement("div", "Timeline-item-content");
         var timelineItemIcon = createElement("p","Timeline-item-content__icon");
-        timelineItemIcon.appendChild(createElement("i", "fas fa-baby"));
+        switch (mData.event) {
+          case "start_study":
+            timelineItemIcon.appendChild(createElement("i", "fas fa-school"));
+            break;
+          case "graduation":
+            timelineItemIcon.appendChild(createElement("i", "fas fa-user-graduate"));
+            break;
+          case "start_job":
+            timelineItemIcon.appendChild(createElement("i", "fas fa-user-tie"));
+            break;
+          case "quit_job":
+            timelineItemIcon.appendChild(createElement("i", "fas fa-briefcase"));
+            break;
+          default:
+        }
         currentTimelineItemContent.appendChild(timelineItemIcon);
-
         currentTimelineItemtBody = createElement("div", "Timeline-item-content-body");
       }
       currentTimelineItemtBody.appendChild(createElement("p", "Timeline-item-content__ttl", mData.month+"/"+currentYear));
-      currentTimelineItemtBody.appendChild(createElement("p", "Timeline-item-content__txt", mData.event+" at "+mData.at));
+      switch (mData.event) {
+        case "start_study":
+          currentTimelineItemtBody.appendChild(createElement("p", "Timeline-item-content__txt", "Bắt đầu học "+mData.type+" tại "+mData.at));
+          break;
+        case "graduation":
+          currentTimelineItemtBody.appendChild(createElement("p", "Timeline-item-content__txt", "Tốt nghiệp "+mData.type+" tại "+mData.at));
+          break;
+        case "start_job":
+          currentTimelineItemtBody.appendChild(createElement("p", "Timeline-item-content__txt", "Bắt đầu làm "+mData.type+" tại "+mData.at));
+          break;
+        case "quit_job":
+          currentTimelineItemtBody.appendChild(createElement("p", "Timeline-item-content__txt", "Thôi việc "+mData.type+" tại "+mData.at));
+          break;
+        default:
+          currentTimelineItemtBody.appendChild(createElement("p", "Timeline-item-content__txt", mData.event+" at "+mData.at));
+      }
     }
     currentTimelineItemContent.appendChild(currentTimelineItemtBody);
     currentTimelineItem.appendChild(currentTimelineItemContent);
@@ -83,7 +113,13 @@ document.addEventListener("DOMContentLoaded", function(){
     timelineContent.appendChild(timelineBody);
 
     var timelineEnd = createElement("div", "Timeline-end");
-    timelineEnd.appendChild(createElement("i", "fas fa-baby"));
+    var timelineEndIcon = createElement("img", "Timeline-end__ico");
+    if (data.gender === 0) {
+      timelineEndIcon.setAttribute("src","/img/timeline_end_man.png");
+    } else {
+      timelineEndIcon.setAttribute("src","/img/timeline_end_women.png");
+    }
+    timelineEnd.appendChild(timelineEndIcon);
     if(timelineContent.childElementCount % 2 == 1) {
       timelineEnd.appendChild(createElement("p","Timeline-end__line"));
     } else {
@@ -138,7 +174,9 @@ document.addEventListener("DOMContentLoaded", function(){
         skillContentItem.appendChild(createElement("p","Content-skill-item__ttl",element.name));
         var skillContentItemProcess = createElement("p", "Content-skill-item-process");
         var skillContentItemBar = createElement("span", "Content-skill-item-process-bar");
-        skillContentItemBar.appendChild(createElement("b","Content-skill-item-process-bar__value"))
+        var skillContentItemValue = createElement("b","Content-skill-item-process-bar__value");
+        skillContentItemValue.setAttribute("data-value", element.point);
+        skillContentItemBar.appendChild(skillContentItemValue);
         skillContentItemProcess.appendChild(skillContentItemBar);
         skillContentItem.appendChild(skillContentItemProcess);
         skillContent.appendChild(skillContentItem);
@@ -167,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function(){
   setTimeout(function () {
     var elems = document.querySelectorAll('.Content-skill-item-process-bar__value');
     [].forEach.call(elems, function(el) {
-        el.style.width = '70%';
+        el.style.width = el.getAttribute("data-value")+"%";
     });
   }, 10);
 });
@@ -176,7 +214,7 @@ data = {
   "name"    :"Ngô Hải Vân",
   "job"     :"BrSE",
   "birth"   :"10/08/1993",
-  "gender"  :"0",
+  "gender"  :0,
   "address" :"303 EstatePierNakamura, 3-14-1 GyoutokuEkimae, Ichikawa, Chiba, Japan",
   "phone" :"070-4284-9817",
   "email"  :"evanngo93@gmail.com",
@@ -195,20 +233,21 @@ data = {
       "year": 2015,
       "month": 9,
       "event": "start_job",
-      "type":"Software Engineer",
-      "at":"ĐH Cần Thơ"
+      "type":"Mobile Developer",
+      "at":"VNPT"
     },
     {
       "year": 2015,
       "month": 9,
       "event": "graduation",
-      "type":"Mobile Developer",
-      "at":"VNPT"
+      "type":"Software Engineer",
+      "at":"ĐH Cần Thơ"
     },
     {
       "year": 2016,
       "month": 2,
       "event": "quit_job",
+      "type":"Mobile Developer",
       "at":"VNPT"
     },
     {
@@ -229,6 +268,7 @@ data = {
       "year": 2017,
       "month": 4,
       "event": "graduation",
+      "type":"Tiếng Nhật",
       "at":"Học Viện Meros"
     },
     {
@@ -240,13 +280,14 @@ data = {
     },
     {
       "year": 2018,
-      "month": 10,
+      "month": 6,
       "event": "quit_job",
+      "type":"Mobile Developer",
       "at":"Robust-inc"
     },
     {
       "year": 2018,
-      "month": 10,
+      "month": 7,
       "event": "start_job",
       "type":"BrSE",
       "at":" VietIS Solution"
@@ -263,27 +304,27 @@ data = {
       "skill_sheet": [
         {
           "name" : "JavaScript",
-          "point" : "9"
+          "point" : "87"
         },
         {
           "name" : "HTML/CSS",
-          "point" : "10"
+          "point" : "98"
         },
         {
           "name" : "Android/Java",
-          "point" : "8"
+          "point" : "80"
         },
         {
           "name" : "iOS/Swift",
-          "point" : "5"
+          "point" : "55"
         },
         {
           "name" : "Unity/C#",
-          "point" : "5"
+          "point" : "50"
         },
         {
           "name" : "Database",
-          "point" : "9"
+          "point" : "95"
         }
       ],
       "note": [
@@ -295,27 +336,27 @@ data = {
       "skill_sheet": [
         {
           "name" : "Quản lý",
-          "point" : "5"
+          "point" : "50"
         },
         {
           "name" : "T.Kế tài liệu",
-          "point" : "6"
+          "point" : "65"
         },
         {
           "name" : "Giao tiếp",
-          "point" : "10"
+          "point" : "100"
         },
         {
           "name" : "L.Việc nhóm",
-          "point" : "9"
+          "point" : "100"
         },
         {
           "name" : "Tiếng Anh",
-          "point" : "5"
+          "point" : "50"
         },
         {
           "name" : "Tiếng Nhật",
-          "point" : "8"
+          "point" : "85"
         }
       ],
       "note":[
