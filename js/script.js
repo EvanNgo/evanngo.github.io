@@ -20,9 +20,21 @@ document.addEventListener("DOMContentLoaded", function(){
     this.classList.add("Nav-item--active");
   }// End Nav Click Listener
 
+  initBasicInfo();
   initTimeline();
   initPR();
   initSkill();
+
+  function initBasicInfo() {
+    // document.getElementById('userThumbnail').
+    document.getElementById('userName').innerHTML = data.name;
+    document.getElementById('userJob').innerHTML = data.job;
+    document.getElementById('userBirth').innerHTML = data.birth;
+    document.getElementById('userGender').innerHTML = data.gender === 0 ? "Nam" : "Nữ";
+    document.getElementById('userAddress').innerHTML = data.address;
+    document.getElementById('userPhone').innerHTML = data.phone;
+    document.getElementById('userEmail').innerHTML = data.email;
+  }
 
   function initTimeline() {
     if (data.timeline === null || data.timeline.length === 0) {
@@ -85,14 +97,14 @@ document.addEventListener("DOMContentLoaded", function(){
     var timelineTop = 0;
     var timelineBottom = 0;
 
-    var items = document.getElementsByClassName('Timeline-item-content');    
-    for (let i = 0; i < items.length; i++) {       
+    var items = document.getElementsByClassName('Timeline-item-content');
+    for (let i = 0; i < items.length; i++) {
       if (i % 2 == 0 && items[i].offsetHeight > timelineTop ) {
         timelineTop = items[i].offsetHeight;
       } else if (i % 2 == 1 && items[i].offsetHeight > timelineBottom) {
         timelineBottom = items[i].offsetHeight;
       }
-    }    
+    }
     timelineContent.style.paddingTop = (timelineTop + 20)+"px";
     timelineContent.style.paddingBottom = (timelineBottom + 20)+"px";
   }
@@ -124,10 +136,10 @@ document.addEventListener("DOMContentLoaded", function(){
         const element = skill.skill_sheet[j];
         var skillContentItem = createElement("div", "Content-skill-item");
         skillContentItem.appendChild(createElement("p","Content-skill-item__ttl",element.name));
-        var skillContentItemProcess = createElement("p", "Content-skill-item__process");
-        for (let k = 0; k < element.point ; k++) {
-          skillContentItemProcess.appendChild(document.createElement("span"));
-        }
+        var skillContentItemProcess = createElement("p", "Content-skill-item-process");
+        var skillContentItemBar = createElement("span", "Content-skill-item-process-bar");
+        skillContentItemBar.appendChild(createElement("b","Content-skill-item-process-bar__value"))
+        skillContentItemProcess.appendChild(skillContentItemBar);
         skillContentItem.appendChild(skillContentItemProcess);
         skillContent.appendChild(skillContentItem);
       }
@@ -140,18 +152,25 @@ document.addEventListener("DOMContentLoaded", function(){
       mainContent.appendChild(skillContent);
     }
   }
-});
 
-function createElement(tag, className, content = "") {
-  var element = document.createElement(tag);
-  if (className !== "") {
-    element.className = className;
+  function createElement(tag, className, content = "") {
+    var element = document.createElement(tag);
+    if (className !== "") {
+      element.className = className;
+    }
+    if (content !== "") {
+      element.innerHTML = content;
+    }
+    return element;
   }
-  if (content !== "") {
-    element.innerHTML = content;
-  }
-  return element;
-}
+
+  setTimeout(function () {
+    var elems = document.querySelectorAll('.Content-skill-item-process-bar__value');
+    [].forEach.call(elems, function(el) {
+        el.style.width = '70%';
+    });
+  }, 10);
+});
 
 data = {
   "name"    :"Ngô Hải Vân",
@@ -160,7 +179,7 @@ data = {
   "gender"  :"0",
   "address" :"303 EstatePierNakamura, 3-14-1 GyoutokuEkimae, Ichikawa, Chiba, Japan",
   "phone" :"070-4284-9817",
-  "mail"  :"evanngo93@gmail.com",
+  "email"  :"evanngo93@gmail.com",
   "sns" :[
     {
       "type":"fb",
