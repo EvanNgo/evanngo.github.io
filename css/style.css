@@ -78,6 +78,10 @@ hr {
   display: flex;
 }
 
+.Hidden {
+  opacity: 0;
+}
+
 /* Common */
 .Wrapper {
   background: repeating-linear-gradient( 45deg, #eee, #fef9ec 4px, #eee 4px );
@@ -527,48 +531,32 @@ hr {
   font-weight: bold;
 }
 
-.Content-skill-item__process {
+.Content-skill-item-process {
   flex-grow: 1;
   border: 2px solid #49b4cf;
   height: 100%;
   border-radius: 5px;
-  padding: 0 2px;
+  padding: 2px;
   display: flex;
+  position: relative;
   opacity: 0.8;
 }
 
-.Content-skill-item__process span {
-  background: #49b4cf;
+.Content-skill-item-process-bar {
   border-radius: 3px;
-  width: 9.37%;
-  margin: 2px 0.7% 2px 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
-.Content-skill-item__process span:last-child {
-  margin-right: 0;
-}
-
-.Content-skill-item--max .Content-skill-item__process {
-  border-color: #ed5463;
-}
-
-.Content-skill-item--max .Content-skill-item__process span {
-  background: #ed5463;
-}
-
-.Content-skill-item--high .Content-skill-item__process {
-  border-color: #fb6e52;
-}
-
-.Content-skill-item--high .Content-skill-item__process span {
-  background: #fb6e52;
-}
-
-.Content-skill-item--medium .Content-skill-item__process {
-  border-color: #49cfae;
-}
-
-.Content-skill-item--medium .Content-skill-item__process span {
-  background: #49cfae;
+.Content-skill-item-process-bar__value {
+  background: #49b4cf;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  transition: all ease 1.5s 0.5s;
 }
 /* END : SKILL */
